@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+	  <LangVersion>latest</LangVersion>
+	  <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+	  <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+	  <OutputPath>C:\Users\sachi\OneDrive\101_CodeProjects\10_Repo\01_DotNet\8_DeskMind\build\plugins</OutputPath>
+	  <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="HtmlAgilityPack" Version="1.12.3" />
+		<PackageReference Include="Microsoft.Playwright" Version="1.55.0" />
+		<PackageReference Include="Microsoft.SemanticKernel" Version="1.65.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\DeskMind.Plugins.WebScraper\DeskMind.Plugins.WebScraper.csproj" />
+	</ItemGroup>
+
+</Project>
+
+
