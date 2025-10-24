@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net9.0-windows</TargetFramework>
+		<Nullable>enable</Nullable>
+		<UseWPF>true</UseWPF>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <Compile Remove="NewFolder\**" />
+	  <EmbeddedResource Remove="NewFolder\**" />
+	  <None Remove="NewFolder\**" />
+	  <Page Remove="NewFolder\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Folder Include="Themes\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="AvalonEdit" Version="6.3.1.120" />
+	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\DeskMind.Plugin.PythonRunner\DeskMind.Plugin.PythonRunner.csproj" />
+	</ItemGroup>
+</Project>
+
