@@ -4,62 +4,257 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:avalonedit="http://icsharpcode.net/sharpdevelop/avalonedit"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:helpers="clr-namespace:DeskMind.Plugin.PythonRunner.WPF.Helpers"
-    xmlns:local="clr-namespace:DeskMind.Plugin.PythonRunner.WPF.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:vm="clr-namespace:DeskMind.Plugin.PythonRunner.WPF.ViewModels"
-    d:DesignHeight="450"
-    d:DesignWidth="800"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     mc:Ignorable="d">
-
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ui:ControlsDictionary />
+                <ui:ThemesDictionary Theme="Light" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="5" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
 
-        <!--  Script Tree  -->
-        <StackPanel Grid.Column="0">
-            <Button
-                Margin="5"
-                Command="{Binding AddScriptCommand}"
-                Content="Add Script" />
-            <Button
-                Margin="5"
-                Command="{Binding RemoveScriptCommand}"
-                Content="Remove Script" />
-            <TreeView helpers:TreeViewSelectedItemBehavior.SelectedItem="{Binding SelectedScript, Mode=TwoWay}" ItemsSource="{Binding Scripts}">>
-                <TreeView.ItemTemplate>
-                    <HierarchicalDataTemplate ItemsSource="{Binding Children}">
-                        <TextBlock Text="{Binding Name}" />
-                    </HierarchicalDataTemplate>
-                </TreeView.ItemTemplate>
-            </TreeView>
-        </StackPanel>
-
-        <!--  Script Editor  -->
-        <DockPanel Grid.Column="1">
-            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
-                <Button
-                    Margin="5"
-                    Command="{Binding SaveScriptCommand}"
-                    Content="Save" />
-                <Button
-                    Margin="5"
-                    Command="{Binding ValidateScriptCommand}"
-                    Content="Validate" />
-                <Button
-                    Margin="5"
-                    Command="{Binding EditRequirementsCommand}"
-                    Content="Edit Requirements" />
+        <!--  Left: Script folders list  -->
+        <DockPanel Grid.Column="0" Margin="6">
+            <StackPanel
+                Margin="0,0,0,6"
+                DockPanel.Dock="Top"
+                Orientation="Horizontal">
+                <ui:Button
+                    Width="100"
+                    Margin="0,0,6,0"
+                    Command="{Binding AddScriptFolderCommand}"
+                    Content="Add"
+                    Icon="{ui:SymbolIcon Symbol=FolderAdd20}" />
+                <ui:Button
+                    Width="100"
+                    Command="{Binding RemoveScriptFolderCommand}"
+                    Content="Delete"
+                    Icon="{ui:SymbolIcon Delete24}" />
             </StackPanel>
-
-            <avalonedit:TextEditor
-                Document="{Binding Document, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                FontFamily="Consolas"
-                FontSize="14"
-                ShowLineNumbers="True"
-                SyntaxHighlighting="Python" />
+            <Border
+                Padding="6"
+                BorderBrush="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}"
+                BorderThickness="1"
+                CornerRadius="6">
+                <ListBox
+                    DisplayMemberPath="Name"
+                    ItemsSource="{Binding ScriptFolders}"
+                    SelectedItem="{Binding SelectedFolder, Mode=TwoWay}" />
+            </Border>
         </DockPanel>
+
+        <GridSplitter Grid.Column="1" />
+
+        <!--  Right: Editor Area  -->
+        <DockPanel Grid.Column="2" Margin="6">
+            <!--  Top menu  -->
+            <Menu
+                Background="Transparent"
+                DockPanel.Dock="Top"
+                FontSize="14">
+                <ui:MenuItem Header="File" Icon="{ui:SymbolIcon DocumentSplitHint20}">
+                    <MenuItem Command="{Binding AddScriptFolderCommand}" Header="New Folder" />
+                    <Separator />
+                    <MenuItem Command="{Binding SaveScriptCommand}" Header="Save Script" />
+                    <MenuItem Command="{Binding SaveRequirementsCommand}" Header="Save Requirements" />
+                    <MenuItem Command="{Binding SaveMetadataCommand}" Header="Save Metadata" />
+                </ui:MenuItem>
+                <ui:MenuItem Header="Edit" Icon="{ui:SymbolIcon DocumentEdit20}">
+                    <MenuItem Command="ApplicationCommands.Copy" Header="Copy" />
+                    <MenuItem Command="ApplicationCommands.Cut" Header="Cut" />
+                    <MenuItem Command="ApplicationCommands.Paste" Header="Paste" />
+                    <Separator />
+                    <MenuItem Command="ApplicationCommands.SelectAll" Header="Select All" />
+                </ui:MenuItem>
+                <ui:MenuItem Header="Run" Icon="{ui:SymbolIcon Play20}">
+                    <MenuItem Command="{Binding ValidateScriptCommand}" Header="Validate" />
+                    <MenuItem Command="{Binding RunScriptCommand}" Header="Run" />
+                </ui:MenuItem>
+                <ui:MenuItem Header="Tools" Icon="{ui:SymbolIcon ScanText24}">
+                    <MenuItem Command="{Binding GenerateRequirementsCommand}" Header="Generate Requirements" />
+                </ui:MenuItem>
+                <Separator />
+                <ui:MenuItem Header="Help" Icon="{ui:SymbolIcon QuestionCircle20}">
+                    <MenuItem Header="About Python Runner" />
+                </ui:MenuItem>
+            </Menu>
+
+            <!--  Optional quick actions toolbar  -->
+            <ToolBar Background="Transparent" DockPanel.Dock="Top">
+                <ui:Button
+                    Margin="0,0,6,0"
+                    Command="{Binding SaveScriptCommand}"
+                    Content="Save"
+                    Icon="{ui:SymbolIcon Save24}" />
+                <ui:Button
+                    Margin="0,0,6,0"
+                    Command="{Binding ValidateScriptCommand}"
+                    Content="Validate"
+                    Icon="{ui:SymbolIcon CheckmarkCircle24}" />
+                <ui:Button
+                    Margin="0,0,6,0"
+                    Command="{Binding RunScriptCommand}"
+                    Content="Run"
+                    Icon="{ui:SymbolIcon Play24}" />
+                <Separator />
+                <ui:Button
+                    Margin="0,0,6,0"
+                    Command="{Binding SaveRequirementsCommand}"
+                    Content="Reqs"
+                    Icon="{ui:SymbolIcon Save24}"
+                    ToolTip="Save requirements.txt" />
+                <ui:Button
+                    Command="{Binding GenerateRequirementsCommand}"
+                    Content="Generate"
+                    Icon="{ui:SymbolIcon ScanText24}"
+                    ToolTip="Generate requirements from environment" />
+            </ToolBar>
+
+            <!--  Tabs  -->
+            <TabControl>
+                <!--  Script Tab  -->
+                <TabItem Header="Script">
+                    <DockPanel>
+                        <Border
+                            Margin="0,0,0,6"
+                            Padding="8"
+                            Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}"
+                            CornerRadius="6"
+                            DockPanel.Dock="Top">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Foreground="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" Text="Active folder:" />
+                                <TextBlock
+                                    Margin="6,0,0,0"
+                                    Text="{Binding SelectedFolder.Path}"
+                                    TextWrapping="WrapWithOverflow" />
+                            </StackPanel>
+                        </Border>
+                        <Border
+                            Padding="6"
+                            BorderBrush="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}"
+                            BorderThickness="1"
+                            CornerRadius="6">
+                            <avalonedit:TextEditor
+                                Document="{Binding ScriptDocument, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                FontFamily="Consolas"
+                                FontSize="14"
+                                ShowLineNumbers="True"
+                                SyntaxHighlighting="Python" />
+                        </Border>
+                    </DockPanel>
+                </TabItem>
+
+                <!--  Requirements Tab  -->
+                <TabItem Header="Requirements">
+                    <DockPanel>
+                        <ToolBar Background="Transparent" DockPanel.Dock="Top">
+                            <ui:Button
+                                Margin="0,0,6,0"
+                                Command="{Binding SaveRequirementsCommand}"
+                                Content="Save"
+                                Icon="{ui:SymbolIcon Save24}" />
+                            <ui:Button
+                                Command="{Binding GenerateRequirementsCommand}"
+                                Content="Generate"
+                                Icon="{ui:SymbolIcon ScanText24}" />
+                        </ToolBar>
+                        <Border
+                            Padding="6"
+                            BorderBrush="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}"
+                            BorderThickness="1"
+                            CornerRadius="6">
+                            <TextBox
+                                AcceptsReturn="True"
+                                AcceptsTab="True"
+                                FontFamily="Consolas"
+                                FontSize="14"
+                                Text="{Binding RequirementsText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </Border>
+                    </DockPanel>
+                </TabItem>
+
+                <!--  Metadata Tab  -->
+                <TabItem Header="Metadata">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <StackPanel Margin="0,6,0,0">
+                            <TextBlock Text="Function Name" />
+                            <TextBox Text="{Binding Metadata.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBlock Margin="0,6,0,0" Text="Description" />
+                            <TextBox AcceptsReturn="True" Text="{Binding Metadata.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                            <TextBlock Margin="0,6,0,0" Text="Output Type" />
+                            <TextBox Text="{Binding Metadata.OutputType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                            <TextBlock Margin="0,6,0,0" Text="Parameters" />
+                            <ItemsControl ItemsSource="{Binding Metadata.Parameters}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <DockPanel Margin="0,3,0,3">
+                                            <ui:Button
+                                                Command="{Binding DataContext.RemoveParameterCommand, RelativeSource={RelativeSource AncestorType=TabItem}}"
+                                                CommandParameter="{Binding}"
+                                                Content="Remove"
+                                                DockPanel.Dock="Right"
+                                                Icon="{ui:SymbolIcon Delete24}" />
+                                            <StackPanel Orientation="Horizontal">
+                                                <StackPanel.Resources>
+                                                    <Style TargetType="FrameworkElement">
+                                                        <Setter Property="Margin" Value="0,0,6,0" />
+                                                    </Style>
+                                                </StackPanel.Resources>
+                                                <TextBox Width="140" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                <TextBox Width="120" Text="{Binding Type, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                <TextBox Width="220" Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                            </StackPanel>
+                                        </DockPanel>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                            <ui:Button
+                                Width="160"
+                                Command="{Binding AddParameterCommand}"
+                                Content="Add Parameter"
+                                Icon="{ui:SymbolIcon Add24}" />
+                            <StackPanel Margin="0,6,0,0" Orientation="Horizontal">
+                                <ui:Button
+                                    Command="{Binding SaveMetadataCommand}"
+                                    Content="Save Metadata"
+                                    Icon="{ui:SymbolIcon Save24}" />
+                            </StackPanel>
+                        </StackPanel>
+                    </ScrollViewer>
+                </TabItem>
+            </TabControl>
+        </DockPanel>
+        <!--  Bottom status bar  -->
+        <StatusBar Grid.Row="1" Grid.ColumnSpan="4">
+            <StatusBar.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                </ItemsPanelTemplate>
+            </StatusBar.ItemsPanel>
+            <StatusBarItem>
+                <TextBlock Text="{Binding SelectedFolder.Path}" TextTrimming="CharacterEllipsis" />
+            </StatusBarItem>
+        </StatusBar>
     </Grid>
 </UserControl>

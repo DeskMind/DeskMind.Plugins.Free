@@ -1,4 +1,4 @@
-using DeskMind.Core.Plugins;
+﻿using DeskMind.Core.Plugins;
 
 using Microsoft.SemanticKernel;
 
@@ -16,7 +16,16 @@ namespace DeskMind.Plugin.PythonRunner
             Name = "Python Script Plugin",
             Version = "1.0.0",
             Description = "Allows running user-provided Python scripts as Semantic Kernel functions using cached Python VMs.",
-            Dependencies = new[] { "Python 3.x" }
+            Dependencies = new[] { "Python 3.x" },
+            DefaultPrompts = new[]
+            {
+                new DefaultPrompt
+                {
+                    Icon = "🐍",
+                    Header = "Create a Flask App",
+                    Description = "Create a flask app for a portfolio webiste of an engineer.",
+                }
+            }
         };
 
         // Configurable script folder path
@@ -76,4 +85,3 @@ namespace DeskMind.Plugin.PythonRunner
         }
     }
 }
-
