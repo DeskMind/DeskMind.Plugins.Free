@@ -3,6 +3,8 @@ using DeskMind.Core.UI;
 using DeskMind.Plugin.PythonRunner.WPF.ViewModels;
 using DeskMind.Plugin.PythonRunner.WPF.Views;
 
+using System.Windows.Navigation;
+
 using Wpf.Ui.Controls;
 
 namespace DeskMind.Plugin.PythonRunner.WPF
@@ -12,6 +14,8 @@ namespace DeskMind.Plugin.PythonRunner.WPF
         public string PluginName => "Python Runner";
 
         public object PluginIcon => new SymbolIcon(SymbolRegular.CodePyRectangle16); // Use default icon
+
+        public Type TargetPageType => typeof(PythonRunnerUIControl);
 
         private PythonRunnerViewModel? _viewModel;
 
