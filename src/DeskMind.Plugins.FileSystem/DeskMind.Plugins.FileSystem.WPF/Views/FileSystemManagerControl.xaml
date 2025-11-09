@@ -1,0 +1,93 @@
+﻿<UserControl
+    x:Class="DeskMind.Plugins.FileSystem.WPF.Views.FileSystemManagerControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="clr-namespace:DeskMind.Plugins.FileSystem.WPF.Models"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    d:DesignHeight="450"
+    d:DesignWidth="900"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ui:ControlsDictionary />
+                <ui:ThemesDictionary Theme="Light" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="5" />
+            <ColumnDefinition Width="3*" />
+        </Grid.ColumnDefinitions>
+
+        <!--  Left side: Tree + commands  -->
+        <DockPanel Grid.Column="0" Margin="5">
+            <ToolBar DockPanel.Dock="Top">
+                <ui:Button
+                    Command="{Binding RefreshCommand}"
+                    Content="{ui:SymbolIcon Symbol=ArrowRepeatAll20}"
+                    ToolTip="Reload" />
+                <Separator />
+                <ui:Button
+                    Command="{Binding CreateFolderCommand}"
+                    Content="{ui:SymbolIcon Symbol=FolderAdd20}"
+                    ToolTip="Create Folder" />
+                <ui:Button
+                    Command="{Binding CreateFileCommand}"
+                    Content="{ui:SymbolIcon Symbol=DocumentAdd20}"
+                    ToolTip="Create File" />
+                <Separator />
+                <ui:Button
+                    Command="{Binding DeleteCommand}"
+                    Content="{ui:SymbolIcon Symbol=Delete20}"
+                    ToolTip="Delete Selected" />
+            </ToolBar>
+            <TreeView ItemsSource="{Binding Items}" SelectedItemChanged="TreeView_SelectedItemChanged">
+                <TreeView.Resources>
+                    <HierarchicalDataTemplate DataType="{x:Type models:FileNode}" ItemsSource="{Binding Children}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Name}" />
+                        </StackPanel>
+                    </HierarchicalDataTemplate>
+                </TreeView.Resources>
+            </TreeView>
+        </DockPanel>
+
+        <GridSplitter
+            Grid.Column="1"
+            Width="5"
+            HorizontalAlignment="Stretch"
+            Background="Gray" />
+
+        <!--  Right side: Editor  -->
+        <DockPanel Grid.Column="2" Margin="5">
+            <ToolBar DockPanel.Dock="Top">
+                <TextBlock
+                    Width="300"
+                    VerticalAlignment="Center"
+                    Text="{Binding CurrentFilePath}"
+                    TextTrimming="CharacterEllipsis" />
+                <Separator />
+                <Button
+                    Command="{Binding OpenCommand}"
+                    Content="{ui:SymbolIcon Symbol=OpenFolder16}"
+                    ToolTip="Open" />
+                <Button
+                    Command="{Binding SaveCommand}"
+                    Content="{ui:SymbolIcon Symbol=DocumentSave20}"
+                    IsEnabled="{Binding IsDirty}"
+                    ToolTip="Save" />
+            </ToolBar>
+            <avalonEdit:TextEditor
+                x:Name="Editor"
+                FontFamily="Consolas"
+                FontSize="14"
+                ShowLineNumbers="True" />
+        </DockPanel>
+    </Grid>
+</UserControl>
