@@ -9,12 +9,12 @@
     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     mc:Ignorable="d">
     <UserControl.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
+        <d:ResourceDictionary>
+            <d:ResourceDictionary.MergedDictionaries>
                 <ui:ControlsDictionary />
                 <ui:ThemesDictionary Theme="Light" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
+            </d:ResourceDictionary.MergedDictionaries>
+        </d:ResourceDictionary>
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -24,7 +24,7 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="30" />
         </Grid.RowDefinitions>
 
         <!--  Left: Script folders list  -->
@@ -65,31 +65,35 @@
             <Menu
                 Background="Transparent"
                 DockPanel.Dock="Top"
-                FontSize="14">
-                <ui:MenuItem Header="File" Icon="{ui:SymbolIcon DocumentSplitHint20}">
-                    <MenuItem Command="{Binding AddScriptFolderCommand}" Header="New Folder" />
+                FontSize="14"
+                Foreground="{DynamicResource TextFillColorPrimaryBrush}">
+                <ui:MenuItem
+                    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                    Header="File"
+                    Icon="{ui:SymbolIcon DocumentSplitHint20}">
+                    <ui:MenuItem Command="{Binding AddScriptFolderCommand}" Header="New Folder" />
                     <Separator />
-                    <MenuItem Command="{Binding SaveScriptCommand}" Header="Save Script" />
-                    <MenuItem Command="{Binding SaveRequirementsCommand}" Header="Save Requirements" />
-                    <MenuItem Command="{Binding SaveMetadataCommand}" Header="Save Metadata" />
+                    <ui:MenuItem Command="{Binding SaveScriptCommand}" Header="Save Script" />
+                    <ui:MenuItem Command="{Binding SaveRequirementsCommand}" Header="Save Requirements" />
+                    <ui:MenuItem Command="{Binding SaveMetadataCommand}" Header="Save Metadata" />
                 </ui:MenuItem>
                 <ui:MenuItem Header="Edit" Icon="{ui:SymbolIcon DocumentEdit20}">
-                    <MenuItem Command="ApplicationCommands.Copy" Header="Copy" />
-                    <MenuItem Command="ApplicationCommands.Cut" Header="Cut" />
-                    <MenuItem Command="ApplicationCommands.Paste" Header="Paste" />
+                    <ui:MenuItem Command="ApplicationCommands.Copy" Header="Copy" />
+                    <ui:MenuItem Command="ApplicationCommands.Cut" Header="Cut" />
+                    <ui:MenuItem Command="ApplicationCommands.Paste" Header="Paste" />
                     <Separator />
-                    <MenuItem Command="ApplicationCommands.SelectAll" Header="Select All" />
+                    <ui:MenuItem Command="ApplicationCommands.SelectAll" Header="Select All" />
                 </ui:MenuItem>
                 <ui:MenuItem Header="Run" Icon="{ui:SymbolIcon Play20}">
-                    <MenuItem Command="{Binding ValidateScriptCommand}" Header="Validate" />
-                    <MenuItem Command="{Binding RunScriptCommand}" Header="Run" />
+                    <ui:MenuItem Command="{Binding ValidateScriptCommand}" Header="Validate" />
+                    <ui:MenuItem Command="{Binding RunScriptCommand}" Header="Run" />
                 </ui:MenuItem>
                 <ui:MenuItem Header="Tools" Icon="{ui:SymbolIcon ScanText24}">
-                    <MenuItem Command="{Binding GenerateRequirementsCommand}" Header="Generate Requirements" />
+                    <ui:MenuItem Command="{Binding GenerateRequirementsCommand}" Header="Generate Requirements" />
                 </ui:MenuItem>
                 <Separator />
                 <ui:MenuItem Header="Help" Icon="{ui:SymbolIcon QuestionCircle20}">
-                    <MenuItem Header="About Python Runner" />
+                    <ui:MenuItem Header="About Python Runner" />
                 </ui:MenuItem>
             </Menu>
 
@@ -127,7 +131,7 @@
             <!--  Tabs  -->
             <TabControl>
                 <!--  Script Tab  -->
-                <TabItem Header="Script">
+                <TabItem Foreground="{DynamicResource TextFillColorPrimaryBrush}" Header="Script">
                     <DockPanel>
                         <Border
                             Margin="0,0,0,6"
@@ -139,6 +143,7 @@
                                 <TextBlock Foreground="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" Text="Active folder:" />
                                 <TextBlock
                                     Margin="6,0,0,0"
+                                    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                                     Text="{Binding SelectedFolder.Path}"
                                     TextWrapping="WrapWithOverflow" />
                             </StackPanel>

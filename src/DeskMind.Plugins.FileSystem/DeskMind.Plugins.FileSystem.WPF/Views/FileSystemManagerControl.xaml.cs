@@ -2,6 +2,7 @@
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 using DeskMind.Plugins.FileSystem.WPF.Models;
 using DeskMind.Plugins.FileSystem.WPF.ViewModels;
@@ -68,6 +69,41 @@ namespace DeskMind.Plugins.FileSystem.WPF.Views
             if (e.NewValue is FileNode node)
             {
                 Vm.SelectedNode = node;
+            }
+        }
+
+        private void TreeViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (Vm?.SelectedNode == null || Vm.SelectedNode.IsRoot)
+                return;
+            Vm.StartRenameCommand.Execute(null);
+        }
+
+        private void RenameTextBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (sender is TextBox tb)
+            {
+                tb.Focus();
+                tb.SelectAll();
+            }
+        }
+
+        private void RenameTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            Vm?.ConfirmRenameCommand.Execute(null);
+        }
+
+        private void RenameTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                Vm?.ConfirmRenameCommand.Execute(null);
+                e.Handled = true;
+            }
+            else if (e.Key == Key.Escape)
+            {
+                Vm?.CancelRenameCommand.Execute(null);
+                e.Handled = true;
             }
         }
     }

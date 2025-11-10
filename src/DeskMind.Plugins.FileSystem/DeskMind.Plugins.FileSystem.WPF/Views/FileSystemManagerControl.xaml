@@ -9,13 +9,20 @@
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     d:DesignHeight="450"
     d:DesignWidth="900"
+    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
+            <d:ResourceDictionary.MergedDictionaries>
                 <ui:ControlsDictionary />
                 <ui:ThemesDictionary Theme="Light" />
-            </ResourceDictionary.MergedDictionaries>
+            </d:ResourceDictionary.MergedDictionaries>
+            <!--  Style to attach events via EventSetter  -->
+            <Style x:Key="RenameTextBoxStyle" TargetType="TextBox">
+                <EventSetter Event="Loaded" Handler="RenameTextBox_Loaded" />
+                <EventSetter Event="LostFocus" Handler="RenameTextBox_LostFocus" />
+                <EventSetter Event="KeyDown" Handler="RenameTextBox_KeyDown" />
+            </Style>
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
@@ -51,10 +58,47 @@
                 <TreeView.Resources>
                     <HierarchicalDataTemplate DataType="{x:Type models:FileNode}" ItemsSource="{Binding Children}">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Name}" />
+                            <ui:SymbolIcon
+                                Width="16"
+                                Height="16"
+                                Margin="0,0,5,0"
+                                Symbol="{Binding Icon}" />
+                            <ContentControl>
+                                <ContentControl.Style>
+                                    <Style TargetType="ContentControl">
+                                        <Setter Property="ContentTemplate">
+                                            <Setter.Value>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding Name}" />
+                                                </DataTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsEditing}" Value="True">
+                                                <Setter Property="ContentTemplate">
+                                                    <Setter.Value>
+                                                        <DataTemplate>
+                                                            <TextBox
+                                                                MinWidth="120"
+                                                                Style="{StaticResource RenameTextBoxStyle}"
+                                                                Text="{Binding EditingName, UpdateSourceTrigger=PropertyChanged}" />
+                                                        </DataTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ContentControl.Style>
+                            </ContentControl>
                         </StackPanel>
                     </HierarchicalDataTemplate>
                 </TreeView.Resources>
+                <TreeView.ItemContainerStyle>
+                    <Style BasedOn="{StaticResource {x:Type TreeViewItem}}" TargetType="TreeViewItem">
+                        <EventSetter Event="PreviewMouseDoubleClick" Handler="TreeViewItem_MouseDoubleClick" />
+                        <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
+                    </Style>
+                </TreeView.ItemContainerStyle>
             </TreeView>
         </DockPanel>
 

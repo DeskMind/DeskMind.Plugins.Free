@@ -11,6 +11,8 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 
+using Wpf.Ui.Controls;
+
 namespace DeskMind.Plugins.FileSystem.WPF.ViewModels
 {
     public partial class FileSystemManagerViewModel : ObservableObject
@@ -38,6 +40,9 @@ namespace DeskMind.Plugins.FileSystem.WPF.ViewModels
         public IRelayCommand DeleteCommand { get; }
         public IRelayCommand SaveCommand { get; }
         public IRelayCommand OpenCommand { get; }
+        public IRelayCommand StartRenameCommand { get; }
+        public IRelayCommand ConfirmRenameCommand { get; }
+        public IRelayCommand CancelRenameCommand { get; }
 
         public FileSystemManagerViewModel(string workspacePath, IMessageBoxService messageBoxService)
         {
@@ -50,6 +55,9 @@ namespace DeskMind.Plugins.FileSystem.WPF.ViewModels
             DeleteCommand = new RelayCommand(DeleteSelected);
             SaveCommand = new RelayCommand(SaveCurrent, () => IsDirty && File.Exists(CurrentFilePath));
             OpenCommand = new RelayCommand(OpenSelected);
+            StartRenameCommand = new RelayCommand(StartRename);
+            ConfirmRenameCommand = new RelayCommand(ConfirmRename);
+            CancelRenameCommand = new RelayCommand(CancelRename);
 
             _document.Changed += (_, __) => IsDirty = true;
 
@@ -70,7 +78,8 @@ namespace DeskMind.Plugins.FileSystem.WPF.ViewModels
                 Name = isRoot ? Path.GetFileName(path.TrimEnd(Path.DirectorySeparatorChar)) : Path.GetFileName(path),
                 FullPath = path,
                 IsFolder = Directory.Exists(path),
-                IsRoot = isRoot
+                IsRoot = isRoot,
+                Icon = Directory.Exists(path) ? SymbolRegular.Folder20 : GetIcon(path)
             };
 
             if (node.IsFolder)
@@ -79,11 +88,15 @@ namespace DeskMind.Plugins.FileSystem.WPF.ViewModels
                 {
                     foreach (var dir in Directory.GetDirectories(path))
                     {
-                        node.Children.Add(BuildNode(dir));
+                        var child = BuildNode(dir);
+                        child.Parent = node;
+                        node.Children.Add(child);
                     }
                     foreach (var file in Directory.GetFiles(path))
                     {
-                        node.Children.Add(BuildNode(file));
+                        var child = BuildNode(file);
+                        child.Parent = node;
+                        node.Children.Add(child);
                     }
                 }
                 catch { /* ignore IO exceptions */ }
@@ -217,6 +230,62 @@ namespace DeskMind.Plugins.FileSystem.WPF.ViewModels
             }
         }
 
+        private void StartRename()
+        {
+            if (SelectedNode == null || SelectedNode.IsRoot)
+                return;
+            SelectedNode.EditingName = SelectedNode.Name;
+            SelectedNode.IsEditing = true;
+        }
+
+        private void ConfirmRename()
+        {
+            var node = SelectedNode;
+            if (node == null || node.IsRoot)
+                return;
+            var newName = (node.EditingName ?? string.Empty).Trim();
+            if (string.IsNullOrWhiteSpace(newName) || newName == node.Name)
+            {
+                node.IsEditing = false;
+                return;
+            }
+            var parentDir = Path.GetDirectoryName(node.FullPath)!;
+            var targetPath = Path.Combine(parentDir, newName);
+            try
+            {
+                // if editing file currently open, close first
+                var reopen = false;
+                if (!node.IsFolder && string.Equals(CurrentFilePath, node.FullPath, StringComparison.OrdinalIgnoreCase))
+                {
+                    reopen = true;
+                    CurrentFilePath = string.Empty;
+                    Document = new TextDocument();
+                    IsDirty = false;
+                }
+                if (node.IsFolder)
+                    Directory.Move(node.FullPath, targetPath);
+                else
+                    File.Move(node.FullPath, targetPath);
+                node.FullPath = targetPath;
+                node.Name = newName;
+                node.IsEditing = false;
+                if (reopen)
+                {
+                    SelectedNode = node; // triggers open
+                }
+            }
+            catch (Exception ex)
+            {
+                _messageBoxService.Show($"Failed to rename: {ex.Message}");
+            }
+        }
+
+        private void CancelRename()
+        {
+            if (SelectedNode == null) return;
+            SelectedNode.IsEditing = false;
+        }
+
         private static string GetUniqueName(string parent, string baseName, bool isFolder)
         {
             var name = baseName;
@@ -243,6 +312,28 @@ namespace DeskMind.Plugins.FileSystem.WPF.ViewModels
                 candidate = Path.Combine(dir, $"{file} ({i++}){ext}");
             } while (File.Exists(candidate));
             return candidate;
+        }
+
+        private static SymbolRegular GetIcon(string path)
+        {
+            var ext = Path.GetExtension(path).ToLowerInvariant();
+            return ext switch
+            {
+                ".txt" => SymbolRegular.TextCaseLowercase16,
+                ".cs" => SymbolRegular.CodeCs16,
+                ".json" => SymbolRegular.Braces16,
+                ".js" => SymbolRegular.CodeJs16,
+                ".ts" => SymbolRegular.CodeTs16,
+                ".rb" => SymbolRegular.CodeRb16,
+                ".vba" => SymbolRegular.CodeVb16,
+                ".xml" => SymbolRegular.Code16,
+                ".py" => SymbolRegular.CodePy16,
+                ".md" => SymbolRegular.Markdown20,
+                ".html" or ".htm" => SymbolRegular.BookGlobe20,
+                "css" => SymbolRegular.DocumentCss16,
+                ".jpg" or ".jpeg" or ".png" or ".gif" or ".bmp" or ".svg" => SymbolRegular.Image16,
+                _ => SymbolRegular.Document20,
+            };
         }
     }
 }
