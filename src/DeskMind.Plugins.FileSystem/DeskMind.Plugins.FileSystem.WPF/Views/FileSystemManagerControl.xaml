@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:lex="clr-namespace:WPFLocalizeExtension.Extensions;assembly=WPFLocalizeExtension"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="clr-namespace:DeskMind.Plugins.FileSystem.WPF.Models"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
@@ -38,21 +39,21 @@
                 <ui:Button
                     Command="{Binding RefreshCommand}"
                     Content="{ui:SymbolIcon Symbol=ArrowRepeatAll20}"
-                    ToolTip="Reload" />
+                    ToolTip="{lex:Loc DeskMind.Plugins.FileSystem.WPF:Strings:FileSystem_Reload_Tooltip}" />
                 <Separator />
                 <ui:Button
                     Command="{Binding CreateFolderCommand}"
                     Content="{ui:SymbolIcon Symbol=FolderAdd20}"
-                    ToolTip="Create Folder" />
+                    ToolTip="{lex:Loc DeskMind.Plugins.FileSystem.WPF:Strings:FileSystem_CreateFolder_Tooltip}" />
                 <ui:Button
                     Command="{Binding CreateFileCommand}"
                     Content="{ui:SymbolIcon Symbol=DocumentAdd20}"
-                    ToolTip="Create File" />
+                    ToolTip="{lex:Loc DeskMind.Plugins.FileSystem.WPF:Strings:FileSystem_CreateFile_Tooltip}" />
                 <Separator />
                 <ui:Button
                     Command="{Binding DeleteCommand}"
                     Content="{ui:SymbolIcon Symbol=Delete20}"
-                    ToolTip="Delete Selected" />
+                    ToolTip="{lex:Loc DeskMind.Plugins.FileSystem.WPF:Strings:FileSystem_DeleteSelected_Tooltip}" />
             </ToolBar>
             <TreeView ItemsSource="{Binding Items}" SelectedItemChanged="TreeView_SelectedItemChanged">
                 <TreeView.Resources>
@@ -120,12 +121,12 @@
                 <Button
                     Command="{Binding OpenCommand}"
                     Content="{ui:SymbolIcon Symbol=OpenFolder16}"
-                    ToolTip="Open" />
+                    ToolTip="{lex:Loc DeskMind.Plugins.FileSystem.WPF:Strings:FileSystem_Open_Tooltip}" />
                 <Button
                     Command="{Binding SaveCommand}"
                     Content="{ui:SymbolIcon Symbol=DocumentSave20}"
                     IsEnabled="{Binding IsDirty}"
-                    ToolTip="Save" />
+                    ToolTip="{lex:Loc DeskMind.Plugins.FileSystem.WPF:Strings:FileSystem_Save_Tooltip}" />
             </ToolBar>
             <avalonEdit:TextEditor
                 x:Name="Editor"

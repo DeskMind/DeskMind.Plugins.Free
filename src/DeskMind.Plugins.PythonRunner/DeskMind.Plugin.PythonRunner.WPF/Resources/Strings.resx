@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+ <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+ <resheader name="version"><value>2.0</value></resheader>
+ <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+ <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+ <data name="Py_File_Menu" xml:space="preserve"><value>File</value></data>
+ <data name="Py_File_NewFolder" xml:space="preserve"><value>New Folder</value></data>
+ <data name="Py_File_SaveScript" xml:space="preserve"><value>Save Script</value></data>
+ <data name="Py_File_SaveRequirements" xml:space="preserve"><value>Save Requirements</value></data>
+ <data name="Py_File_SaveMetadata" xml:space="preserve"><value>Save Metadata</value></data>
+ <data name="Py_Edit_Menu" xml:space="preserve"><value>Edit</value></data>
+ <data name="Py_Edit_Copy" xml:space="preserve"><value>Copy</value></data>
+ <data name="Py_Edit_Cut" xml:space="preserve"><value>Cut</value></data>
+ <data name="Py_Edit_Paste" xml:space="preserve"><value>Paste</value></data>
+ <data name="Py_Edit_SelectAll" xml:space="preserve"><value>Select All</value></data>
+ <data name="Py_Run_Menu" xml:space="preserve"><value>Run</value></data>
+ <data name="Py_Run_Validate" xml:space="preserve"><value>Validate</value></data>
+ <data name="Py_Run_Run" xml:space="preserve"><value>Run</value></data>
+ <data name="Py_Tools_Menu" xml:space="preserve"><value>Tools</value></data>
+ <data name="Py_Tools_GenerateRequirements" xml:space="preserve"><value>Generate Requirements</value></data>
+ <data name="Py_Help_Menu" xml:space="preserve"><value>Help</value></data>
+ <data name="Py_Help_About" xml:space="preserve"><value>About Python Runner</value></data>
+ <data name="Py_Toolbar_Save" xml:space="preserve"><value>Save</value></data>
+ <data name="Py_Toolbar_Validate" xml:space="preserve"><value>Validate</value></data>
+ <data name="Py_Toolbar_Run" xml:space="preserve"><value>Run</value></data>
+ <data name="Py_Toolbar_Reqs" xml:space="preserve"><value>Reqs</value></data>
+ <data name="Py_Toolbar_Generate" xml:space="preserve"><value>Generate</value></data>
+ <data name="Py_Tooltip_SaveRequirements" xml:space="preserve"><value>Save requirements.txt</value></data>
+ <data name="Py_Tooltip_GenerateRequirements" xml:space="preserve"><value>Generate requirements from environment</value></data>
+ <data name="Py_Tab_Script" xml:space="preserve"><value>Script</value></data>
+ <data name="Py_Tab_Requirements" xml:space="preserve"><value>Requirements</value></data>
+ <data name="Py_Tab_Metadata" xml:space="preserve"><value>Metadata</value></data>
+ <data name="Py_Metadata_FunctionName" xml:space="preserve"><value>Function Name</value></data>
+ <data name="Py_Metadata_Description" xml:space="preserve"><value>Description</value></data>
+ <data name="Py_Metadata_OutputType" xml:space="preserve"><value>Output Type</value></data>
+ <data name="Py_Metadata_Parameters" xml:space="preserve"><value>Parameters</value></data>
+ <data name="Py_Metadata_Remove" xml:space="preserve"><value>Remove</value></data>
+ <data name="Py_Metadata_AddParameter" xml:space="preserve"><value>Add Parameter</value></data>
+ <data name="Py_Metadata_SaveMetadata" xml:space="preserve"><value>Save Metadata</value></data>
+ <data name="Py_Side_Add" xml:space="preserve"><value>Add</value></data>
+ <data name="Py_Side_Delete" xml:space="preserve"><value>Delete</value></data>
+ <data name="Py_Side_ActiveFolder" xml:space="preserve"><value>Active folder:</value></data>
+</root>

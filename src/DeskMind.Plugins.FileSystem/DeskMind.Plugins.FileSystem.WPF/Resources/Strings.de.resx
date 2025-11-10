@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+ <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+ <resheader name="version"><value>2.0</value></resheader>
+ <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+ <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+ <data name="FileSystem_Reload_Tooltip" xml:space="preserve"><value>Neu laden</value></data>
+ <data name="FileSystem_CreateFolder_Tooltip" xml:space="preserve"><value>Ordner erstellen</value></data>
+ <data name="FileSystem_CreateFile_Tooltip" xml:space="preserve"><value>Datei erstellen</value></data>
+ <data name="FileSystem_DeleteSelected_Tooltip" xml:space="preserve"><value>Auswahl löschen</value></data>
+ <data name="FileSystem_Open_Tooltip" xml:space="preserve"><value>Öffnen</value></data>
+ <data name="FileSystem_Save_Tooltip" xml:space="preserve"><value>Speichern</value></data>
+ <data name="FileSystem_SaveRequirements_Tooltip" xml:space="preserve"><value>requirements.txt speichern</value></data>
+ <data name="FileSystem_GenerateRequirements_Tooltip" xml:space="preserve"><value>Anforderungen aus Umgebung erzeugen</value></data>
+ <data name="FileSystem_CurrentFilePath_Label" xml:space="preserve"><value>Aktueller Pfad</value></data>
+</root>

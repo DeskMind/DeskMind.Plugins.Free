@@ -26,10 +26,28 @@
 	  <PackageReference Include="AvalonEdit" Version="6.3.1.120" />
 		<PackageReference Include="WPF-UI" Version="4.0.3" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+ <!-- Localization provider -->
+ <PackageReference Include="WPFLocalizeExtension" Version="3.10.0" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\DeskMind.Plugin.PythonRunner\DeskMind.Plugin.PythonRunner.csproj" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Resources\Strings.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>Strings.resx</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+ <ItemGroup>
+ <EmbeddedResource Update="Resources\Strings.resx">
+ <Generator>PublicResXFileCodeGenerator</Generator>
+ <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+ <CustomToolNamespace>Resources</CustomToolNamespace>
+ </EmbeddedResource>
+ </ItemGroup>
 </Project>
 
