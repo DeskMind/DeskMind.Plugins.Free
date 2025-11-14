@@ -1,6 +1,7 @@
 using DeskMind.Core.Plugins;
 using DeskMind.Plugins.Office.Helpers;
 using Microsoft.SemanticKernel;
+using DeskMind.Plugins.Office.Resources;
 
 namespace DeskMind.Plugins.Office.Excel
 {
@@ -8,10 +9,10 @@ namespace DeskMind.Plugins.Office.Excel
     {
         public override PluginMetadata Metadata => new PluginMetadata
         {
-            Name = "Excel Sheet Plugin",
+            Name = PluginStrings.ExcelSheet_Name,
             Version = "1.0.0",
-            Description = "Sheet-level operations for Excel.",
-            Dependencies = new[] { "COM Excel Installed" }
+            Description = PluginStrings.ExcelSheet_Description,
+            Dependencies = new[] { PluginStrings.ExcelSheet_Dependency_Com }
         };
 
         public override bool IsAvailable() => GeneralHelpers.IsOfficeInstalled("Excel");

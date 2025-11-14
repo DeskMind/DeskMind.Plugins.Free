@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -9,14 +9,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+    <EmbeddedResource Include="PDF\DeskMind.Plugins.PythonRunner.KB.PDF.pep8_guidelines.pdf" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\DeskMind.SDK\src\DeskMind.Core\DeskMind.Core.csproj" />
-    <ProjectReference Include="..\..\..\..\DeskMind.SDK\src\DeskMind.Rag\DeskMind.Rag.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\..\DeskMind.SDK\src\DeskMind.Core\DeskMind.Core.csproj" />
+		<ProjectReference Include="..\..\..\..\DeskMind.SDK\src\DeskMind.Rag\DeskMind.Rag.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Markdown\" />
+	</ItemGroup>
 
 </Project>
-
-

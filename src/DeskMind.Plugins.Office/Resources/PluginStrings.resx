@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+ <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+ <resheader name="version"><value>2.0</value></resheader>
+ <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+ <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+ <!-- Excel -->
+ <data name="ExcelCell_Name" xml:space="preserve"><value>Excel Cell Plugin</value></data>
+ <data name="ExcelCell_Description" xml:space="preserve"><value>Cell-level operations for Excel.</value></data>
+ <data name="ExcelCell_Dependency_Com" xml:space="preserve"><value>COM Excel Installed</value></data>
+ <data name="ExcelSheet_Name" xml:space="preserve"><value>Excel Sheet Plugin</value></data>
+ <data name="ExcelSheet_Description" xml:space="preserve"><value>Sheet-level operations for Excel.</value></data>
+ <data name="ExcelSheet_Dependency_Com" xml:space="preserve"><value>COM Excel Installed</value></data>
+ <!-- Word -->
+ <data name="WordText_Name" xml:space="preserve"><value>Word Text Plugin</value></data>
+ <data name="WordText_Description" xml:space="preserve"><value>Text-level operations for Word.</value></data>
+ <data name="WordText_Dependency_Com" xml:space="preserve"><value>COM Word Installed</value></data>
+ <data name="WordStructure_Name" xml:space="preserve"><value>Word Structure Plugin</value></data>
+ <data name="WordStructure_Description" xml:space="preserve"><value>Structure-level operations for Word.</value></data>
+ <data name="WordStructure_Dependency_Com" xml:space="preserve"><value>COM Word Installed</value></data>
+ <!-- Outlook -->
+ <data name="OutlookEmail_Name" xml:space="preserve"><value>Outlook Email Plugin</value></data>
+ <data name="OutlookEmail_Description" xml:space="preserve"><value>Email operations for Outlook.</value></data>
+ <data name="OutlookEmail_Dependency_Com" xml:space="preserve"><value>COM Outlook Installed</value></data>
+ <data name="OutlookCalendar_Name" xml:space="preserve"><value>Outlook Calendar Plugin</value></data>
+ <data name="OutlookCalendar_Description" xml:space="preserve"><value>Calendar operations for Outlook.</value></data>
+ <data name="OutlookCalendar_Dependency_Com" xml:space="preserve"><value>COM Outlook Installed</value></data>
+ <!-- PowerPoint -->
+ <data name="PowerPointPresentation_Name" xml:space="preserve"><value>PowerPoint Presentation Plugin</value></data>
+ <data name="PowerPointPresentation_Description" xml:space="preserve"><value>Presentation-level operations for PowerPoint.</value></data>
+ <data name="PowerPointPresentation_Dependency_Com" xml:space="preserve"><value>COM PowerPoint Installed</value></data>
+ <data name="PowerPointSlide_Name" xml:space="preserve"><value>PowerPoint Slide Plugin</value></data>
+ <data name="PowerPointSlide_Description" xml:space="preserve"><value>Slide-level operations for PowerPoint.</value></data>
+ <data name="PowerPointSlide_Dependency_Com" xml:space="preserve"><value>COM PowerPoint Installed</value></data>
+ <!-- Web Search -->
+ <data name="WebSearch_Name" xml:space="preserve"><value>Web Search Plugin</value></data>
+ <data name="WebSearch_Description" xml:space="preserve"><value>Search the web and return links and their respective information using DuckDuckGo.</value></data>
+ <!-- Common -->
+ <data name="Common_Role_Admin" xml:space="preserve"><value>Admin</value></data>
+</root>

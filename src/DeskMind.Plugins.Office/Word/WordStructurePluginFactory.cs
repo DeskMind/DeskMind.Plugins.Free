@@ -1,6 +1,7 @@
 using DeskMind.Core.Plugins;
 using DeskMind.Plugins.Office.Helpers;
 using Microsoft.SemanticKernel;
+using DeskMind.Plugins.Office.Resources;
 
 namespace DeskMind.Plugins.Office.Word
 {
@@ -8,10 +9,10 @@ namespace DeskMind.Plugins.Office.Word
     {
         public override PluginMetadata Metadata => new PluginMetadata
         {
-            Name = "Word Structure Plugin",
+            Name = PluginStrings.WordStructure_Name,
             Version = "1.0.0",
-            Description = "Structure-level operations for Word.",
-            Dependencies = new[] { "COM Word Installed" }
+            Description = PluginStrings.WordStructure_Description,
+            Dependencies = new[] { PluginStrings.WordStructure_Dependency_Com }
         };
 
         public override bool IsAvailable() => GeneralHelpers.IsOfficeInstalled("Word");
